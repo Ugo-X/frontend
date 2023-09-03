@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Inter:300,400,500,700');
-@import url('https://fonts.googleapis.com/css?family=Darker+Grotesque:300,400,500,700');
+@import url("https://fonts.googleapis.com/css?family=Inter:300,400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Darker+Grotesque:300,400,500,700");
 
 * {
   box-sizing: border-box;
@@ -22,4 +22,51 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .lp-page {
+    @apply text-12 md:text-16;
+  }
+  .btn {
+    @apply py-[6] md:py-3 px-6 !rounded-xl text-10 md:text-16 !normal-case !leading-normal !text-white;
+  }
+}
+
+.custom-mui-tabs .MuiTabs-root,
+.custom-mui-tabs .MuiTouchRipple-root {
+  min-height: 36px;
+}
+
+.custom-mui-tabs .MuiTabs-flexContainer {
+  z-index: 3;
+  position: relative;
+}
+.custom-mui-tabs .MuiTabs-indicator {
+  height: 100% !important;
+  border-radius: 999999px !important;
+  background-color: #8866dd !important;
+  z-index: 1;
+}
+
+.linear-bg {
+  background: linear-gradient(
+    90deg,
+    rgba(24, 26, 37, 0.8) 0%,
+    rgba(8, 11, 23, 0.16) 80%,
+    rgba(150, 111, 246, 0.1) 100%
+  );
+}
+
+.linear-bg-light {
+  background: linear-gradient(
+      137.13deg,
+      rgba(241, 241, 241, 0.45) -4.26%,
+      rgba(194, 194, 194, 0.19) 102.22%
+    ),
+    linear-gradient(0deg, rgba(248, 143, 109, 0.1), rgba(248, 143, 109, 0.1));
 }

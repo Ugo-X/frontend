@@ -4,6 +4,7 @@ import { rgba } from "polished";
 
 declare module "@mui/material/styles/createPalette" {
   interface Palette {
+    themePrimary: PaletteColor;
     customBackground: {
       surface: string;
       outputBackground: string;
@@ -50,6 +51,7 @@ declare module "@mui/material/styles/createPalette" {
   }
 
   interface PaletteOptions {
+    themePrimary?: PaletteColorOptions;
     customBackground?: {
       surface: string;
       module: string;
@@ -96,6 +98,12 @@ declare module "@mui/material/styles/createPalette" {
   }
 }
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    themePrimary: true;
+  }
+}
+
 export const theme = (mode: PaletteMode) => {
   // console.log("🚀 « mode:", mode);
   const isDark = mode === "dark";
@@ -110,6 +118,10 @@ export const theme = (mode: PaletteMode) => {
       secondary: {
         main: isDark ? "#98A1C0" : "#98A1C0",
         light: "#B8C0DC",
+      },
+      themePrimary: {
+        main: "#4A25A7",
+        light: "#8866DD",
       },
       background: {
         default: isDark ? "#0F1016" : "#FFFFFF",

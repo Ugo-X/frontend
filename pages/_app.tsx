@@ -8,14 +8,32 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, AppContext } from "../src/contexts";
 import { Provider } from 'react-redux'
 import store from '../src/state'
+import { NextPage } from "next";
+import { LayoutTypes } from "interfaces/layout";
+import BaseLayout from "components/BaseLayout";
 
-export default function App({ Component, pageProps }: AppProps) {
+const layouts = {
+	base: BaseLayout,
+	dashboard: MainLayout
+};
+
+type NextPageWithLayout = NextPage & {
+  layout?: LayoutTypes,
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout,
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const layout = Component.layout || 'dashboard'
+  const PageLayout = layouts[layout]
   const [isConnectWalletModal, setConnectWalletModal] = useState<boolean>(false)
   const [mode, setMode] = useState<"light" | "dark">("dark");
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        setMode((prevMode: 'light' | 'dark') => (prevMode === "light" ? "dark" : "light"));
       },
     }),
     [],
@@ -35,9 +53,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <CssBaseline />
           <MySorobanReactProvider>
             <AppContext.Provider value={appContextValues}>
-              <MainLayout>
+              <PageLayout>
                 <Component {...pageProps} />
-              </MainLayout>
+              </PageLayout>
             </AppContext.Provider>
           </MySorobanReactProvider>
         </ThemeProvider>
