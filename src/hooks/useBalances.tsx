@@ -29,9 +29,11 @@ export async function tokenBalance(
   sorobanContext: SorobanContextType,
 ) {
   const user = accountToScVal(userAddress);
+  console.log("🚀 ~ file: useBalances.tsx:32 ~ user:", user)
+  console.log("🚀 ~ file: useBalances.tsx:32 ~ userAddress:", userAddress)
 
   if (!tokenAddress) return 0;
-
+  console.log("Will trys")
   try {
     const tokenBalance = await contractInvoke({
       contractAddress: tokenAddress,
@@ -39,9 +41,12 @@ export async function tokenBalance(
       args: [user],
       sorobanContext,
     });
+    console.log("🚀 ~ file: useBalances.tsx:44 ~ tokenBalance:", tokenBalance)
 
+    console.log("🚀 ~ file: useBalances.tsx:47 ~ (scValToJs(tokenBalance as xdr.ScVal) as BigNumber:", (scValToJs(tokenBalance as xdr.ScVal) as BigNumber).toString())
     return scValToJs(tokenBalance as xdr.ScVal) as BigNumber;
   } catch (error) {
+    console.log("Error while getting balance: ", error);
     throw error;
   }
 }

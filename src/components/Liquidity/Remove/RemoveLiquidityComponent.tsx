@@ -104,6 +104,7 @@ export default function RemoveLiquidityComponent() {
 
   // Getting tokens from pathname
   const router = useRouter();
+  console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:107 ~ RemoveLiquidityComponent ~ router:", router)
   const { tokens } = router.query as { tokens: TokensType };
   const [currencyIdA, currencyIdB] = Array.isArray(tokens) ? tokens : ['', ''];
 
@@ -182,22 +183,41 @@ export default function RemoveLiquidityComponent() {
   const removeLiquidity = useCallback(() => {
     setAttemptingTxn(true);
 
-    const factor = BigNumber(100).minus(allowedSlippage).dividedBy(100);
+    const factor = BigNumber(100).minus(99).dividedBy(100);
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:186 ~ removeLiquidity ~ factor:", factor)
 
     const desiredA = new BigNumber(parsedAmounts.CURRENCY_A?.value as string);
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:189 ~ removeLiquidity ~ desiredA:", desiredA.toString())
     const desiredB = new BigNumber(parsedAmounts.CURRENCY_B?.value as string);
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:191 ~ removeLiquidity ~ desiredB.toString():", desiredB.toString())
 
-    const minABN = desiredA.multipliedBy(factor).decimalPlaces(0);
+    const minABN = desiredA.multipliedBy(0).decimalPlaces(0);
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:194 ~ removeLiquidity ~ minABN.toString():", minABN.toString())
 
-    const minBBN = desiredB.multipliedBy(factor).decimalPlaces(0);
+    const minBBN = desiredB.multipliedBy(0).decimalPlaces(0);
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:197 ~ removeLiquidity ~ minBBN.toString():", minBBN.toString())
 
     const minAScVal = bigNumberToI128(minABN);
     const minBScVal = bigNumberToI128(minBBN);
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:205 ~ removeLiquidity ~ currencyA?.address as string:", currencyA?.address as string)
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:207 ~ removeLiquidity ~ currencyB?.address as string:", currencyB?.address as string)
+    console.log("🚀 ~ file: RemoveLiquidityComponent.tsx:209 ~ removeLiquidity ~ parsedAmounts.LIQUIDITY as BigNumber:", (parsedAmounts.LIQUIDITY as BigNumber).toString())
+    
+  //   remove_liquidity(
+  //     e: Env,
+  //     token_a: Address,
+  //     token_b: Address,
+  //     liquidity: i128,
+  //     amount_a_min: i128,
+  //     amount_b_min: i128,
+  //     to: Address,
+  //     deadline: u64,
+  // ) 
 
     const args = [
       new SorobanClient.Address(currencyA?.address as string).toScVal(),
       new SorobanClient.Address(currencyB?.address as string).toScVal(),
-      bigNumberToI128(parsedAmounts.LIQUIDITY as BigNumber),
+      bigNumberToI128(BigNumber(1000)),
       minAScVal,
       minBScVal,
       new SorobanClient.Address(sorobanContext.address as string).toScVal(),

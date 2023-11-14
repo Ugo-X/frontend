@@ -97,6 +97,7 @@ export function useDerivedBurnInfo(
 
         // Calculate newUserBalance
         liquidityToBurn = userBalance.multipliedBy(percent).dividedBy(100).decimalPlaces(0);
+        console.log("🚀 ~ file: hooks.tsx:100 ~ getNewCurrencyValue ~ liquidityToBurn.toString():", liquidityToBurn.toString())
         if (liquidityToBurn.isNaN()) {
           // Handle cases where the calculation results in NaN
           return '';
