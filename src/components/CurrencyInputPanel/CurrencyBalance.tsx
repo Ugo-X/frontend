@@ -31,6 +31,7 @@ interface CurrencyBalanceProps {
   onMax: (maxValue: string) => void;
   hideBalance: any;
   showMaxButton: any;
+  networkFees?: number | undefined | null;
 }
 
 export default function CurrencyBalance({
@@ -39,6 +40,7 @@ export default function CurrencyBalance({
   onMax,
   hideBalance,
   showMaxButton,
+  networkFees,
 }: CurrencyBalanceProps) {
   const { tokenBalancesResponse } = useGetMyBalances();
   const balance =
@@ -46,10 +48,12 @@ export default function CurrencyBalance({
     '0';
 
   const theme = useTheme();
+
+  console.log({ currencyBalanceNetworkFees: networkFees });
   return (
     <RowFixed style={{ height: '17px' }}>
       <BodySmall color={theme.palette.secondary.main}>
-        {!hideBalance && currency ? `Balance: ${balance}` : null}
+        {networkFees} {!hideBalance && currency ? `Balance: ${balance}` : null}
       </BodySmall>
       {showMaxButton ? (
         <StyledBalanceMax onClick={() => onMax(balance as string)}>Max</StyledBalanceMax>

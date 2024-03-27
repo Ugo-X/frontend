@@ -191,6 +191,7 @@ interface CurrencyInputPanelProps {
   renderBalance?: (amount: any) => ReactNode;
   loading?: boolean;
   transparent?: boolean;
+  networkFees?: number | undefined | null;
 }
 
 export default function CurrencyInputPanel({
@@ -211,6 +212,7 @@ export default function CurrencyInputPanel({
   hideBalance = false,
   hideInput = false,
   loading = false,
+  networkFees,
   ...rest
 }: CurrencyInputPanelProps) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -221,6 +223,8 @@ export default function CurrencyInputPanel({
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false);
   }, [setModalOpen]);
+
+  console.log({ currencyInputPanelNetworkFees: networkFees });
 
   return (
     <InputPanel id={id} hideInput={hideInput} {...rest}>
@@ -278,6 +282,7 @@ export default function CurrencyInputPanel({
                   onMax={onMax}
                   hideBalance={hideBalance}
                   showMaxButton={showMaxButton}
+                  networkFees={networkFees}
                 />
               ) : (
                 <span />
